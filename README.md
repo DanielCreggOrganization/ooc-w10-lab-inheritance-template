@@ -58,7 +58,20 @@ public static void main(String[] args) {
 ```
 
 ### Visual Representation
-<img src="img/diagram.svg" alt="Class Diagram">
+```mermaid
+classDiagram
+    Person <|-- Employee
+    class Person {
+        - String name
+        + getName() String
+        + setName(name: String) void
+    }
+    class Employee {
+        - int employeeId
+        + getEmployeeId() int
+        + setEmployeeId(id: int) void
+    }
+```
 
 ### DIY Exercise: Animals
 1. Create 2 classes. An `Animal` class and a `Dog` class. The `Dog` class will extend (i.e. inherit from) the `Animal` class. Place both classes inside the `ie.atu.inheritance` package you created previously.
