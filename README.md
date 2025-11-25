@@ -99,14 +99,6 @@ Familiarise yourself with key terms in inheritance, such as superclass and subcl
 
 Inheritance establishes a hierarchy between classes, where the subclass extends the functionality of the superclass.
 
-### Visual Representation
-```mermaid
-graph TD
-    Superclass[Person]
-    Subclass[Employee]
-    Subclass -->|inherits from| Superclass
-```
-
 ### DIY Exercise: Vehicles
 1.  **Superclass:** Create a class `Vehicle` with a method `move()` that prints "The vehicle is moving."
 2.  **Subclass:** Create a class `Car` that extends `Vehicle` and adds a method `playRadio()` that prints "Playing radio."
@@ -251,6 +243,57 @@ Java doesn't support multiple inheritance with classes to avoid:
 
 Instead, Java provides interfaces for implementing multiple inheritance of behaviour.
 
+### DIY Exercise: Hybrid Inheritance
+Create the classes listed below inside the `ie.atu.inheritance` package. 
+
+Required classes:
+
+1. `Vehicle` (superclass)
+    - Private field: `String type`.
+    - Constructor: `Vehicle(String type)` to initialise `type`.
+    - Getter and setter for `type`.
+    - Method: `void move()` that prints a short message, e.g. "The <type> is moving".
+
+2. `Car` (subclass of `Vehicle`)
+    - Private field: `int doors`.
+    - Constructor: `Car(String type, int doors)` which calls `super(type)`.
+    - Getter and setter for `doors`.
+    - Method: `void honk()` that prints a short message, e.g. "Beep!".
+
+3. `ElectricCar` (subclass of `Car`)
+    - Private field: `int batteryCapacity` (e.g. in kWh).
+    - Constructor: `ElectricCar(String type, int doors, int batteryCapacity)` which calls `super(type, doors)`.
+    - Getter and setter for `batteryCapacity`.
+    - Method: `void charge()` that prints a short message, e.g. "Charging...".
+
+In the `Main` class:
+- Create an instance of `ElectricCar` using the constructor.
+- Call `move()`, `honk()`, and `charge()` on the instance.
+- Use getters to retrieve and print the `type`, `doors`, and `batteryCapacity` values.
+
+Notes:
+- Keep method implementations simple (print statements are fine).
+- Use `extends` and `super(...)` correctly to pass values up the inheritance chain.
+
+Learning outcome: This exercise gives practice implementing a multi-level class inheritance chain, constructors that call `super(...)`, and using getters/setters to access private fields.
+
+Extra (Hierarchical Inheritance) — `Motorbike`:
+Add a `Motorbike` class to demonstrate hierarchical inheritance where multiple subclasses share the same superclass.
+
+Requirements for `Motorbike`:
+- `Motorbike` should extend `Vehicle` (do not extend `Car`).
+- Private field: `boolean hasSidecar`.
+- Constructor: `Motorbike(String type, boolean hasSidecar)` which calls `super(type)`.
+- Getter and setter for `hasSidecar`.
+- Method: `void ride()` that prints a short message, e.g. "Riding the <type>" and indicates whether it has a sidecar.
+
+In `Main` show that `Motorbike` and `Car` are both `Vehicle` instances by:
+- Creating a `Motorbike` instance and calling its methods (`move()`, `ride()`).
+- Using `Vehicle` references where appropriate (e.g. `Vehicle v = new Motorbike(...);`) to demonstrate polymorphism.
+
+This addition demonstrates hierarchical inheritance: multiple subclasses (`Car`, `Motorbike`, etc.) can extend the same superclass (`Vehicle`).
+
+
 ## 4. The Object Class
 
 ### Learning Objective
@@ -259,29 +302,25 @@ Understand that `Object` is the root superclass of all classes in Java and its s
 ### Visual Representation
 ```mermaid
 classDiagram
-    Object <|-- Person
-    Person <|-- Student
+    Object <|-- Cat
     class Object{
         +toString()
         +equals(Object obj)
         +hashCode()
     }
-    class Person{
-        // Person's members
-    }
-    class Student{
-        // Student's members
+    class Cat{
+        // Cat's members
     }
 ```
 
 ### DIY Exercise: Implicit Inheritance
 Create a class `Gadget`:
 -   Do not specify a superclass.
--   Override the `toString()` method to return "This is a gadget."
 
 **In your `Main` class:**
 -   Create an instance of `Gadget`.
--   Print the object to the console, which will implicitly call `toString()`.
+-   Call the `toString()` method on the object.
+-   Call another method from the dot operator list. 
 
 ## 5. Constructors in Inheritance
 
@@ -326,12 +365,12 @@ public class Employee extends Person {
 ### Visual Representation
 ```mermaid
 sequenceDiagram
-    Client->>+Employee: new Employee("Alice", 123)
+    Main->>+Employee: new Employee("Alice", 123)
     Employee->>+Person: super("Alice")
     Person->>Person: Initialize name
     Person-->>-Employee: Control returns
     Employee->>Employee: Initialize employeeId
-    Employee-->>-Client: Employee object created
+    Employee-->>-Main: Employee object created
 ```
 
 ### DIY Exercise: School Management
